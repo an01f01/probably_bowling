@@ -1,0 +1,47 @@
+@startuml
+
+Frame o-- FrameType: has a
+Player *-- Frame: has 10 >
+BowlingGame "1" *-- "8" Player : contains
+
+enum FrameType {
+    NORMAL
+    SPARE
+    STRIKE
+    LAST
+}
+
+class Frame {
+    + points: Int[3]
+    + bonus: Int
+    + frameType: FrameType
+}
+
+class Player {
+    + frames: Frame[10]
+    + name: String
+    + finalScore: Int
+    + reset()
+    + setScore(score: Int)
+    + getScore(): Int
+}
+
+
+class BowlingGame {
+    + PINS: Int
+    - players: Player[]
+    - gameFinished: Boolean
+    - frame: Int
+    - roll: Int
+    - pins: Int
+    - lastScore: Int
+    + addPlayer(name: String): Int
+    + renamePlayer(playerIdx: Int, newName: String): Int
+    + getPlayers(): Player[]
+    + calculateScore(playerIdx: Int, frameNumber: Int, rollNumber: Int, pinsKocked: Int): Int
+    + bowl(playerIdx: Int): Triple<Int, Int, Int>
+    + resetGame()
+}
+
+
+@enduml
